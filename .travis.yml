@@ -7,12 +7,9 @@ env:
     - OWNER=ons
     - ALGORITHM_NAME=ascalaalgorithm
     - ALGORITHMIA_USER=travis
-  matrix:
     - ES_ALGORITHM_DESCRIPTOR=$OWNER/$ALGORITHM_NAME/$TRAVIS_COMMIT
+
 script:
-  - echo ALGORITHM_NAME=$ALGORITHM_NAME
-  - echo TRAVIS_COMMIT=$TRAVIS_COMMIT
-  - echo DESC=$ES_ALGORITHM_DESCRIPTOR
   - sbt ++$TRAVIS_SCALA_VERSION test
   
 jdk:
@@ -20,7 +17,7 @@ jdk:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: bash scripts/deploy.sh -a $ALGORITHM_NAME -u $ALGORITHMIA_USER -p $algo_password
+    script: bash scripts/deploy.sh -a $ALGORITHM_NAME -u $ALGORITHMIA_USER -p $ALGORITHMIA_PASSWORD
     on:
       branch: master
       tags: false
