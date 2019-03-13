@@ -3,10 +3,15 @@ language: scala
 scala:
   - 2.11.11
 env:
-  - OWNER=ons ALGORITHM_NAME=ascalaalgorithm ALGORITHMIA_USER=travis ES_ALGORITHM_DESCRIPTOR=${OWNER}/${ALGORITHM_NAME}/${TRAVIS_COMMIT}
+  global:
+    - OWNER=ons
+    - ALGORITHM_NAME=ascalaalgorithm
+    - ALGORITHMIA_USER=travis
+  matrix:
+    - ES_ALGORITHM_DESCRIPTOR=${OWNER}/${ALGORITHM_NAME}/${TRAVIS_COMMIT}
 script:
   - sbt ++$TRAVIS_SCALA_VERSION test
-  - echo $ES_ALGORITHM_DESCRIPTOR
+  - echo "${ES_ALGORITHM_DESCRIPTOR}"
 jdk:
   - oraclejdk8
 deploy:
